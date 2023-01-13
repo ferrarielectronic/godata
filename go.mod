@@ -1,3 +1,3 @@
-module godata
+module github.com/hpe-storage/godata
 
-go 1.16
+go 1.17
