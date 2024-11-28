@@ -20,9 +20,10 @@ const TokenTypeArgCount int = -1
 
 // TokenTypeListExpr represents a parent node for a variadic listExpr.
 // "list"
-//   "item1"
-//   "item2"
-//   ...
+//
+//	"item1"
+//	"item2"
+//	...
 const TokenTypeListExpr int = -2
 
 const TokenListExpr = "list"
@@ -261,7 +262,6 @@ func (p *Parser) DefineFunction(token string, params []int) {
 // Infix notation for variadic functions and operators: f ( a, b, c, d )
 // Postfix notation with wall notation:                 | a b c d f
 // Postfix notation with count notation:                a b c d 4 f
-//
 func (p *Parser) InfixToPostfix(tokens []*Token) (*tokenQueue, error) {
 	queue := tokenQueue{} // output queue in postfix
 	stack := tokenStack{} // Operator stack
@@ -284,8 +284,8 @@ func (p *Parser) InfixToPostfix(tokens []*Token) (*tokenQueue, error) {
 			// push operators onto stack according to precedence
 			if !stack.Empty() {
 				for o2, ok := p.Operators[stack.Peek().Value]; ok &&
-					(o1.Association == OpAssociationLeft && o1.Precedence <= o2.Precedence) ||
-					(o1.Association == OpAssociationRight && o1.Precedence < o2.Precedence); {
+					((o1.Association == OpAssociationLeft && o1.Precedence <= o2.Precedence) ||
+						(o1.Association == OpAssociationRight && o1.Precedence < o2.Precedence)); {
 					queue.Enqueue(stack.Pop())
 
 					if stack.Empty() {
@@ -449,11 +449,11 @@ func (p *Parser) PostfixToTree(queue *tokenQueue) (*ParseNode, error) {
 	}
 	processVariadicArgs := func(parent *ParseNode) (int, error) {
 		if stack.Empty() {
-			return 0, fmt.Errorf("No argCount token found. '%s'", parent.Token.Value)
+			return 0, fmt.Errorf("no argCount token found. '%s'", parent.Token.Value)
 		}
 		n := stack.Pop()
 		if n.Token.Type != TokenTypeArgCount {
-			return 0, fmt.Errorf("No argCount token found. '%s'", parent.Token.Value)
+			return 0, fmt.Errorf("no argCount token found. '%s'", parent.Token.Value)
 		}
 		argCount, err := strconv.Atoi(n.Token.Value)
 		if err != nil {
@@ -461,7 +461,7 @@ func (p *Parser) PostfixToTree(queue *tokenQueue) (*ParseNode, error) {
 		}
 		for i := 0; i < argCount; i++ {
 			if stack.Empty() {
-				return 0, fmt.Errorf("Missing argument found. '%s'", parent.Token.Value)
+				return 0, fmt.Errorf("missing argument found. '%s'", parent.Token.Value)
 			}
 			c := stack.Pop()
 			// Attach the operand to its parent node which represents the function/operator
@@ -496,7 +496,7 @@ func (p *Parser) PostfixToTree(queue *tokenQueue) (*ParseNode, error) {
 					}
 				}
 				if !foundMatch {
-					return nil, fmt.Errorf("Invalid number of arguments for function '%s'. Got %d argument",
+					return nil, fmt.Errorf("invalid number of arguments for function '%s'. Got %d argument",
 						node.Token.Value, argCount)
 				}
 			}
@@ -508,7 +508,7 @@ func (p *Parser) PostfixToTree(queue *tokenQueue) (*ParseNode, error) {
 			// pop off operands
 			for i := 0; i < o.Operands; i++ {
 				if stack.Empty() {
-					return nil, fmt.Errorf("Insufficient number of operands for operator '%s'", node.Token.Value)
+					return nil, fmt.Errorf("insufficient number of operands for operator '%s'", node.Token.Value)
 				}
 				// prepend children so they get added in the right order
 				c := stack.Pop()

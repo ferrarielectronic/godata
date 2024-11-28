@@ -186,11 +186,11 @@ func (service *GoDataService) GoDataHTTPHandler(w http.ResponseWriter, r *http.R
 	w.Write(response)
 }
 
-func (service *GoDataService) buildMetadataResponse(request *GoDataRequest) ([]byte, error) {
+func (service *GoDataService) buildMetadataResponse(_ *GoDataRequest) ([]byte, error) {
 	return service.Metadata.Bytes()
 }
 
-func (service *GoDataService) buildServiceResponse(request *GoDataRequest) ([]byte, error) {
+func (service *GoDataService) buildServiceResponse(_ *GoDataRequest) ([]byte, error) {
 	// TODO
 	return nil, NotImplementedError("Service responses are not implemented yet.")
 }
@@ -281,12 +281,12 @@ func (service *GoDataService) buildEntityResponse(request *GoDataRequest) ([]byt
 	}
 }
 
-func (service *GoDataService) buildPropertyResponse(request *GoDataRequest) ([]byte, error) {
+func (service *GoDataService) buildPropertyResponse(_ *GoDataRequest) ([]byte, error) {
 	// TODO
 	return nil, NotImplementedError("Property responses are not implemented yet.")
 }
 
-func (service *GoDataService) buildPropertyValueResponse(request *GoDataRequest) ([]byte, error) {
+func (service *GoDataService) buildPropertyValueResponse(_ *GoDataRequest) ([]byte, error) {
 	// TODO
 	return nil, NotImplementedError("Property value responses are not implemented yet.")
 }
@@ -310,7 +310,7 @@ func (service *GoDataService) buildCountResponse(request *GoDataRequest) ([]byte
 	return r.Field.Json()
 }
 
-func (service *GoDataService) buildRefResponse(request *GoDataRequest) ([]byte, error) {
+func (service *GoDataService) buildRefResponse(_ *GoDataRequest) ([]byte, error) {
 	// TODO
 	return nil, NotImplementedError("Ref responses are not implemented yet.")
 }
