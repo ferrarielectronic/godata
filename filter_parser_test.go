@@ -2169,6 +2169,41 @@ func TestLambda3(t *testing.T) {
 	}
 }
 
+func TestLambdaPrimitiveArray(t *testing.T) {
+	input := "Tags/any(var:var eq 'London')"
+	tokens, err := GlobalFilterTokenizer.Tokenize(input)
+	if err != nil {
+		t.Error(err)
+		return
+	}
+	output, err := GlobalFilterParser.InfixToPostfix(tokens)
+	if err != nil {
+		t.Error(err)
+		return
+	}
+
+	tree, err := GlobalFilterParser.PostfixToTree(output)
+	if err != nil {
+		t.Error(err)
+		return
+	}
+	var expect []expectedParseNode = []expectedParseNode{
+		{"/", 0},
+		{"Tags", 1},
+		{"any", 1},
+		{"var", 2},
+		{"eq", 2},
+		{"var", 3},
+		{"'London'", 3},
+	}
+	pos := 0
+	err = CompareTree(tree, expect, &pos, 0)
+	if err != nil {
+		printTree(tree)
+		t.Errorf("Tree representation does not match expected value. error: %s", err.Error())
+	}
+}
+
 func TestFilterTokenizerExists(t *testing.T) {
 
 	tokenizer := FilterTokenizer()
