@@ -1,3 +1,3 @@
-module github.com/hpe-storage/godata
+module github.com/ferrarielectronic/godata
 
 go 1.17
