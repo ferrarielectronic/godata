@@ -1,6 +1,6 @@
 package mysql
 
-import "github.com/hpe-storage/godata"
+import "github.com/ferrarielectronic/godata"
 
 const (
 	XMLNamespace string = "http://docs.oasis-open.org/odata/ns/edmx"
