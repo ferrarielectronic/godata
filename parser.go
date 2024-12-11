@@ -227,6 +227,20 @@ func (p *ParseNode) String() string {
 	return sb.String()
 }
 
+func (p *ParseNode) LeftChild() *ParseNode {
+	if len(p.Children) > 0 {
+		return p.Children[0]
+	}
+	return nil
+}
+
+func (p *ParseNode) RightChild() *ParseNode {
+	if len(p.Children) > 1 {
+		return p.Children[1]
+	}
+	return nil
+}
+
 func EmptyParser() *Parser {
 	return &Parser{
 		Operators: make(map[string]*Operator, 0),
