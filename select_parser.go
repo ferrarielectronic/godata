@@ -17,7 +17,7 @@ func ParseSelectString(sel string) (*GoDataSelectQuery, error) {
 	for _, item := range items {
 		segments := []*Token{}
 		for _, val := range strings.Split(item, "/") {
-			segments = append(segments, &Token{Value: val})
+			segments = append(segments, &Token{Value: strings.TrimSpace(val)})
 		}
 		result = append(result, &SelectItem{segments})
 	}
